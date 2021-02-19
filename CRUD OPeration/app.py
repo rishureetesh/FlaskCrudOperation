@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, redirect, flash
 from flask_wtf import FlaskForm
 from wtforms.validators import InputRequired, DataRequired
-from wtforms import StringField, IntegerField, SubmitField, DecimalField
+from wtforms import StringField, IntegerField, SubmitField, DecimalField, SelectField
 from flaskext.mysql import MySQL
 from datetime import datetime
 from decimal import Decimal
@@ -13,6 +13,7 @@ app.config['MYSQL_DATABASE_PASSWORD'] = 'system'
 app.config['MYSQL_DATABASE_DB'] = 'data'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
+
 
 class getDetails(FlaskForm):
     ambassdor_id = IntegerField(validators=[InputRequired("Ambassdor Id Required"),
@@ -31,7 +32,7 @@ class getDetails(FlaskForm):
                                           DataRequired("Task Count is Required, , Must be Decimal value")],
                               render_kw={"placeholder": "Task Count"})
 
-    state = IntegerField(validators=[InputRequired("State ID is Required"),
+    state = SelectField(coerce=int, validators=[InputRequired("State ID is Required"),
                                      DataRequired("State Id is Required")],
                          render_kw={"placeholder": "State"})
 
@@ -53,6 +54,12 @@ def home():
     conn = mysql.connect()
     cursor = conn.cursor()
     form = addDetails()
+    choices = [
+        (200, 200),
+        (410, 410),
+        (802, 802)
+    ]
+    form.state.choices = choices
     now = datetime.now()
     timeStamp = str(now.strftime("%d-%m-%Y %H:%M:%S"))
     if form.validate_on_submit():
@@ -104,6 +111,12 @@ def updateQueueData(id):
     data = cursor.execute("select * from queue_data where id ={}".format(id))
     row = cursor.fetchone()
     form = editDetails()
+    choices = [
+        (200, 200),
+        (410, 410),
+        (802, 802)
+    ]
+    form.state.choices = choices
     dataset = {
         "id": row[0],
         "Date": row[1],
