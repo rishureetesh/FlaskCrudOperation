@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Queue List
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-10 my-4">
+        {% if form %}
+            <table class="table table-fluid table-striped table-bordered" cellspacing="0" width="100%">
+                <thead scope="row">
+                <th>Date</th>
+                <th>Ambassdor Id</th>
+                <th>Queue Id</th>
+                <th>State</th>
+                <th>Amount</th>
+                <th>Reason</th>
+                <th>Task Count</th>
+                <th></th>
+                </thead>
+                {% for items in form %}
+                    <tr>
+                        <td>{{ items.Date }}</td>
+                        <td>{{ items.Ambassdor_id }}</td>
+                        <td>{{ items.Queue_id }}</td>
+                        <td>{{ items.State }}</td>
+                        <td>{{ items.Amount }}</td>
+                        <td>{{ items.Reason }}</td>
+                        <td>{{ items.Task_Count }}</td>
+                        <td>
+                            <a href="{{ url_for('updateQueueData', id=items.id) }}">
+                                <button class="btn btn-primary">Update</button>
+                            </a>
+                            <a href="{{ url_for('deleteQueueData', id=items.id) }}">
+                                <button class="btn btn-danger">Delete</button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <h1 class="offset-lg-3"> No Queue to show </h1>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

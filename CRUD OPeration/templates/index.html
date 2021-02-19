@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% with messages=get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for type, content in messages %}
+                <div class="alert alert-{{ type }} alert-dismissible my-4" role="alert">
+                    <button type="button" class="close" data-dismiss="alert">
+
+                    </button>
+                    {{ content }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+    <div class="row">
+        <div class="col-lg-10 my-4">
+            <h2>Add Queue</h2>
+            <form method="POST" action="{{ url_for('home') }}">
+                {{form.hidden_tag()}}
+                <div class="form-group">
+                    {{form.ambassdor_id(class="form-control")}}
+                </div>
+                <div class="form-group">
+                    {{form.queue_id(class="form-control")}}
+                </div>
+                <div class="form-group">
+                    {{form.amount(class="form-control")}}
+                </div>
+                <div class="form-group">
+                    {{form.task_count(class="form-control")}}
+                </div>
+                <div class="form-group">
+                    {{form.state(class="form-control")}}
+                </div>
+                <div class="form-group">
+                    {{form.reason(class="form-control")}}
+                </div>
+                <div class="form-group">
+                    {{form.submit(class="btn btn-primary from-control")}}
+                </div>
+            </form>
+        </div>
+</div>
+{% endblock %}

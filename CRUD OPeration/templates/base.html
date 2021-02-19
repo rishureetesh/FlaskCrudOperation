@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+        <div class="container">
+            <h3 class="text-white"> CRUD Operation</h3>
+            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button> -->
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="{{url_for('home')}}" class="nav-link text-white">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url_for('showQueueData')}}" class="nav-link text-white">Show Queue</a>
+                    </li>
+                    <!--<li class="nav-item">
+                        <a href="{{url_for('home')}}" class="nav-link text-white">Delete Queue</a>
+                    </li>-->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %} {% endblock %}
+    </div>
+    <a type="text/javascript" href="{{ url_for('static', filename='js/bootstrap.min.js') }}"></a>
+</body>
+</html>
